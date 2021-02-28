@@ -15,11 +15,12 @@ TempS5851A::TempS5851A(uint8_t address):S5851A(address) {
 
 void TempS5851A::init(){
   Serial.begin(115200);
-  Wire.begin();
+//  Wire.begin();
   // Reset all connected S-5851A sensor by I2C General Call Address.
   // Refer to "8. General call" on datasheet.
   delay(100);
-
+  S5851A::resetByGeneralCall();
+/*
   while(S5851A::resetByGeneralCall()) {
     Serial.println("failed: reset by general call in Address TempS5851A.cpp");
     Serial.println(address);    
@@ -33,7 +34,9 @@ void TempS5851A::init(){
   };
   Serial.println("S5851A initialized");
   delay(100);
+*/
 }
+
 
 float TempS5851A::read(){
   float readings[nmx];

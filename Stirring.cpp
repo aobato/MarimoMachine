@@ -23,8 +23,8 @@ Stirring::Stirring(uint8_t pwm_ch, uint8_t motor_pin1, uint8_t motor_pin2) {
 void Stirring::on(){
   // start stirring 
   ledcWrite(pwm_ch, init_duty);
-  delay(100);
+  delay(200);
   ledcWrite(pwm_ch, base_duty);
-  delay(1000);
+  delay(1200);
   ledcWrite(pwm_ch, 0);
 }

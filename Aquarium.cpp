@@ -18,14 +18,16 @@ uint8_t Aquarium::sensor_pin = 13;
 
 float Aquarium::T_target = 20.0;
 
-Aquarium::Aquarium():TempDS18B20(Aquarium::sensor_pin),Pwm_regulator(peltier_pwm_ch, peltier_pin, 17.0, T_target),
+Aquarium::Aquarium():TempDS18B20(Aquarium::sensor_pin),Pwm_regulator(),
   Stirring(stirring_pwm_ch,stirring_motor_pin1,stirring_motor_pin2) {
   need_stirr=false;
 }
 
 void Aquarium::init(){
-//  T_current = TempDS18B20::read();
+  T_current = TempDS18B20::read();
+  Pwm_regulator::init(peltier_pwm_ch, peltier_pin, T_current, T_target);
 }
+
 void Aquarium::maintain(){
   if (need_stirr) {
     Pwm_regulator::pause();

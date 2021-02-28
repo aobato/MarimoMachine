@@ -16,12 +16,13 @@ class Pwm_regulator {
   static float b;
 
   public:
-     Pwm_regulator(uint8_t  pwm_ch, uint8_t pwm_pin, float T_current, float T_target);
+     Pwm_regulator();
      float T_current;
      float T_target;
      int duty;
      float duty_ratio;
      byte pwm_ch,pwm_pin;
+     void init(uint8_t  pwm_ch, uint8_t pwm_pin, float T_current, float T_target);
      void update(float T_current, float T_target, bool is_delta);
      void pause();
      void resume();     

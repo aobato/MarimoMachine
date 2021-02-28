@@ -12,7 +12,7 @@
 
 #include "TempS5851A.h"
 
-class Radiator {
+class Radiator: private Pwm_regulator {
   public:
      static uint8_t fan_pwm_pin;
      static uint8_t fan_power_pin;

@@ -4,12 +4,12 @@
  * Author: Hirofumi Ikeda
  */
  
-#include "Ohakon.h"
 #include <HTTPClient.h>
+#include "Ohakon.h"
 
 int Ohakon::JST = 3600* 9;
-const char* Ohakon::ssid = "elecom2g-16A454";
-const char* Ohakon::password = "7486942110208";
+const char* Ohakon::ssid = "";
+const char* Ohakon::password = "";
 String Ohakon::endpoint = "http://labs.bitmeister.jp/ohakon/api/?mode=sun_rise_set";
 String Ohakon::geom = "&lat=43.4572585&lng=144.1040147&days=2";
 
@@ -31,7 +31,7 @@ bool Ohakon::sync(){
     delayMicroseconds(50000);
     Serial.print(".");
     loop_count++;
-    if (loop_count > 20) {
+    if (loop_count > 100) {
       success = false;
       return success;
     }

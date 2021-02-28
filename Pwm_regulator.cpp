@@ -13,7 +13,10 @@ uint32_t Pwm_regulator::base_freq = 500;
 float Pwm_regulator::a = 0.3746;
 float Pwm_regulator::b = 10.0;
 
-Pwm_regulator::Pwm_regulator(uint8_t pwm_ch, uint8_t pwm_pin, float T_current, float T_target ) {
+Pwm_regulator::Pwm_regulator() {
+}
+
+void Pwm_regulator::init(uint8_t pwm_ch, uint8_t pwm_pin, float T_current, float T_target ) {
   Pwm_regulator::pwm_ch=pwm_ch;
   Pwm_regulator::pwm_pin=pwm_pin;
   Pwm_regulator::T_target=T_target;

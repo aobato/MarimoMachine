@@ -17,9 +17,10 @@ uint8_t Radiator::S5851A_address = 0x4A;
 BME280 bme280;
 TempS5851A radiator_temp(Radiator::S5851A_address);
 //TempS5851A radiator_temp(0x4A);
-Pwm_regulator fan(Radiator::fan_pwm_ch, Radiator::fan_pwm_pin, 25.0, 25.0);
+//Pwm_regulator fan(Radiator::fan_pwm_ch, Radiator::fan_pwm_pin, 25.0, 25.0);
+Pwm_regulator fan();
 
-Radiator::Radiator() {
+Radiator::Radiator():Pwm_regulator() {
 }
 
 void Radiator::init(){
@@ -28,6 +29,10 @@ void Radiator::init(){
   if(!bme280.init()){
     Serial.println("BME280 initialization error!");
   }
+  T_current = radiator_temp.read();
+  T_target = bme280.getTemperature();
+  Pwm_regulator::init(fan_pwm_ch, Radiator::fan_pwm_pin, T_current, T_target);
+
   // fan pwm on
   pinMode(fan_power_pin,OUTPUT);
   digitalWrite(fan_power_pin,HIGH);
@@ -37,10 +42,10 @@ void Radiator::maintain(){
   T_target = bme280.getTemperature();
   H_current = bme280.getHumidity();
   P_current = bme280.getPressure()/100.0;
-  duty_ratio = fan.duty_ratio;
+  duty_ratio = Pwm_regulator::duty_ratio;
   Serial.begin(115200);
   delay(100);
   Serial.println("T_target-T_current");
   Serial.println(T_target-T_current);
-  fan.update(T_current,T_target,false);  
+  Pwm_regulator::update(T_current,T_target,false);  
 }
